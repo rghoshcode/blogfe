@@ -374,7 +374,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/blogs/full-blog/full-blog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<br>\n<br>\n\n<hr>\n\n<div class=\"wrapper\" >\n<h3>{{blogService.selectedBlog.title}}</h3>\n<div><span class=\"greyBold\">{{blogService.selectedBlog.authorName}}</span> | <span>{{timeConverter(blogService.selectedBlog._ts)}}</span></div>\n<p class=\"serif\">{{blogService.selectedBlog.content}}</p>\n</div>\n<br>\n<h3>Comments</h3>\n\n<div  *ngFor=\"let comment of blogService.selectedBlog.comments\">\n <div class=\"comments\" >\n   \"{{comment.content}}\"\n   <cite>- <b>{{comment.authorName}}</b></cite>\n </div>\n <br>\n</div>\n\n<form name=\"commentForm\"  novalidate>\n      <h4>Add Comment</h4>\n        <textarea  cols=\"30\" rows=\"10\" required></textarea>\n      <label for=\"\">by:</label>\n        <input type=\"text\"  required placeholder=\"Name\"/> \n<br>       \n        <input type=\"submit\" value=\"Submit\"/>\n<br>\n</form>"
+module.exports = "<br>\n<br>\n\n<hr>\n\n<div class=\"wrapper\" >\n<h3>{{blogService.selectedBlog.title}}</h3>\n<div><span class=\"greyBold\">{{blogService.selectedBlog.authorName}}</span> | <span>{{timeConverter(blogService.selectedBlog._ts)}}</span></div>\n<p class=\"serif\">{{blogService.selectedBlog.content}}</p>\n</div>\n<br>\n<h3>Comments</h3>\n\n<div  *ngFor=\"let comment of blogService.selectedBlog.comments\">\n <div class=\"comments\" >\n   \"{{comment.content}}\"\n   <cite>- <b>{{comment.authorName}}</b></cite>\n </div>\n <br>\n</div>\n\n<form name=\"commentForm\" (ngSubmit)=\"onCommentSubmit(blogForm)\" novalidate>\n      <h4>Add Comment</h4>\n        <textarea name= \"BlogContent\" #Content = \"ngModel\" [(ngModel)]=\"blogService.draftComment.content\" cols=\"30\" rows=\"10\" required></textarea>\n      <label for=\"\">by:</label>\n        <input type=\"text\" name= \"AuthorName\" #AuthorName = \"ngModel\" [(ngModel)]=\"blogService.draftComment.authorName\" required placeholder=\"Name\"/> \n<br>       \n        <input type=\"submit\" value=\"Submit\"/>\n<br>\n</form>"
 
 /***/ }),
 
@@ -413,6 +413,14 @@ var FullBlogComponent = (function () {
         var sec = a.getSeconds();
         var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
         return time;
+    };
+    FullBlogComponent.prototype.onCommentSubmit = function (form) {
+        var _this = this;
+        this.blogService.selectedBlog.comments.push(this.blogService.draftComment);
+        this.blogService.putBlog(this.blogService.selectedBlog.id, this.blogService.selectedBlog)
+            .subscribe(function (data) {
+            _this.blogService.getBlogList();
+        });
     };
     FullBlogComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -456,9 +464,20 @@ var BlogService = (function () {
     function BlogService(http) {
         this.http = http;
         this.showSelected = false;
+        this.draftBlog = {
+            id: null,
+            title: '',
+            authorName: '',
+            content: '',
+            _ts: null,
+            comments: null
+        };
+        this.draftComment = {
+            authorName: '',
+            content: ''
+        };
     }
     BlogService.prototype.postBlog = function (blog) {
-        blog.id = Math.floor(Math.random() * 1000);
         var body = JSON.stringify(blog);
         var headerOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
         var requestOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* RequestOptions */]({ method: __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestMethod */].Post, headers: headerOptions });
