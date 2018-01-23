@@ -37,10 +37,5 @@ export class FullBlogComponent implements OnInit {
         this.blogService.getBlogList();
         
       });
-      this.blogService.draftComment.content = '';      
-      
-    
-    
-   
   }
 }
