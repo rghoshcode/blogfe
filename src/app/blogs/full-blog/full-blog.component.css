@@ -1,0 +1,48 @@
+.wrapper {
+    display: grid;
+    background: #eee;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    padding: 1em;
+}
+.comments {
+    display: grid;
+    background: rgb(151, 149, 149);
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    padding: 1em;
+}
+p.serif {
+    font-family: "Times New Roman", Times, serif;
+}
+span.greyBold{
+    font-style: bold;
+    color: gray;
+}
+
+input, textarea {
+    display:block;
+    width:100%;
+    padding:10px;
+    font-size:1.1em;
+
+  }
+  
+input[type="submit"] {    
+    width: 120px; 
+    height: 30px;
+    
+    font-size:0.7em;
+    text-align: left;
+    padding: 4px 33px 4px 33px;
+    text-decoration: none;
+    
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;        
+
+}
+  

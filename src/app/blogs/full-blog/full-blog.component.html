@@ -1,0 +1,30 @@
+<br>
+<br>
+
+<hr>
+
+<div class="wrapper" >
+<h3>{{blogService.selectedBlog.title}}</h3>
+<div><span class="greyBold">{{blogService.selectedBlog.authorName}}</span> | <span>{{timeConverter(blogService.selectedBlog._ts)}}</span></div>
+<p class="serif">{{blogService.selectedBlog.content}}</p>
+</div>
+<br>
+<h3>Comments</h3>
+
+<div  *ngFor="let comment of blogService.selectedBlog.comments">
+ <div class="comments" >
+   "{{comment.content}}"
+   <cite>- <b>{{comment.authorName}}</b></cite>
+ </div>
+ <br>
+</div>
+
+<form name="commentForm"  novalidate>
+      <h4>Add Comment</h4>
+        <textarea  cols="30" rows="10" required></textarea>
+      <label for="">by:</label>
+        <input type="text"  required placeholder="Name"/> 
+<br>       
+        <input type="submit" value="Submit"/>
+<br>
+</form>
