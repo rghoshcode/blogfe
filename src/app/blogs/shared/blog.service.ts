@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
-import {Blog} from './blog.model'
+import {Blog} from './blog.model';
+import {Comment} from './blog.model'
 
 @Injectable()
 export class BlogService {
@@ -13,15 +14,27 @@ export class BlogService {
   //adding a new property for the service
   selectedBlog : Blog;
   draftBlog : Blog;
+  draftComment : Comment;
   blogList : Blog[];
   showSelected: boolean;
   constructor(private http : Http) {
     this.showSelected = false;
-    
+    this.draftBlog =  {
+      id: null,
+      title: '',
+      authorName: '',
+      content: '',
+      _ts: null,
+      comments: null
+    }
+    this.draftComment = {
+      authorName: '',
+      content: ''
+
+    }
    }
 
   postBlog(blog : Blog){
-    blog.id = Math.floor(Math.random() * 1000);
     var body = JSON.stringify(blog);
     var headerOptions = new Headers({'Content-Type':'application/json'});
     var requestOptions = new RequestOptions({method : RequestMethod.Post,headers : headerOptions});

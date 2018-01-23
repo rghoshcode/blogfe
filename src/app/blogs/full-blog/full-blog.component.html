@@ -19,11 +19,11 @@
  <br>
 </div>
 
-<form name="commentForm"  novalidate>
+<form name="commentForm" (ngSubmit)="onCommentSubmit(blogForm)" novalidate>
       <h4>Add Comment</h4>
-        <textarea  cols="30" rows="10" required></textarea>
+        <textarea name= "BlogContent" #Content = "ngModel" [(ngModel)]="blogService.draftComment.content" cols="30" rows="10" required></textarea>
       <label for="">by:</label>
-        <input type="text"  required placeholder="Name"/> 
+        <input type="text" name= "AuthorName" #AuthorName = "ngModel" [(ngModel)]="blogService.draftComment.authorName" required placeholder="Name"/> 
 <br>       
         <input type="submit" value="Submit"/>
 <br>

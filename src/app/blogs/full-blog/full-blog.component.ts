@@ -27,4 +27,20 @@ export class FullBlogComponent implements OnInit {
     var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
     return time;
   }
+
+  onCommentSubmit(form: NgForm) {
+    
+    
+      this.blogService.selectedBlog.comments.push(this.blogService.draftComment);
+      this.blogService.putBlog(this.blogService.selectedBlog.id, this.blogService.selectedBlog)
+      .subscribe(data => {        
+        this.blogService.getBlogList();
+        
+      });
+      this.blogService.draftComment.content = '';      
+      
+    
+    
+   
+  }
 }
