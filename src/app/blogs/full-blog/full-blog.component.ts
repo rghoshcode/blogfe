@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BlogService} from '../shared/blog.service';
 import { NgForm } from '@angular/forms'
 import {Blog} from '../shared/blog.model'
+import {Comment} from '../shared/blog.model'
 
 @Component({
   selector: 'app-full-blog',
@@ -29,7 +30,9 @@ export class FullBlogComponent implements OnInit {
   }
 
   onCommentSubmit(form: NgForm) {
-    
+
+    if (this.blogService.selectedBlog.comments == null)
+    this.blogService.selectedBlog.comments = [];
     
       this.blogService.selectedBlog.comments.push(this.blogService.draftComment);
       this.blogService.putBlog(this.blogService.selectedBlog.id, this.blogService.selectedBlog)
