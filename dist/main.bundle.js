@@ -306,7 +306,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/blogs/blogs.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n  <h2 class=\"jumbotron bg-secondary text-white\">\n    The Core Blog\n  </h2>\n</div>\n\n<!-- <button (click)=\"showNewBlog()\" class=\"newblog\" >Add a new Blog</button>  -->\n<div *ngIf=showNew style=\"width:auto; margin:20 auto;\">\n  \n      <app-blog>\n\n      </app-blog>\n  \n</div>\n<button *ngIf=showNew (click)=\"hideNewBlog()\">Discard Draft!</button> \n\n\n<div *ngIf=blogService.showSelected style=\"width:auto; margin:20 auto;\">\n  \n  <app-full-blog>  </app-full-blog>\n\n</div>\n\n<button *ngIf=blogService.showSelected (click)=\"displayAllBlogs()\">Show all blogs!</button>\n\n<div *ngIf=!blogService.showSelected style=\"width:auto; margin:20 auto;\">\n        \n  <app-blog-list>   </app-blog-list>\n    \n</div>\n\n  \n"
+module.exports = "<div style=\"text-align:center\">\n  <h2 class=\"jumbotron bg-secondary text-white\">\n    The Core Blog\n  </h2>\n</div>\n\n<!-- <button (click)=\"showNewBlog()\" class=\"newblog\" >Add a new Blog</button>  -->\n<!-- <div *ngIf=showNew style=\"width:auto; margin:20 auto;\">\n  \n      <app-blog>\n\n      </app-blog>\n  \n</div>\n<button *ngIf=showNew (click)=\"hideNewBlog()\">Discard Draft!</button>  -->\n\n\n<div *ngIf=blogService.showSelected style=\"width:auto; margin:20 auto;\">\n  \n  <app-full-blog>  </app-full-blog>\n\n</div>\n\n<button *ngIf=blogService.showSelected (click)=\"displayAllBlogs()\">Show all blogs!</button>\n\n<div *ngIf=!blogService.showSelected style=\"width:auto; margin:20 auto;\">\n        \n  <app-blog-list>   </app-blog-list>\n    \n</div>\n\n  \n"
 
 /***/ }),
 
