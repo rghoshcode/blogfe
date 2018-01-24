@@ -11,4 +11,5 @@ export interface Blog {
 export interface Comment {
                 authorName:string;
                 content:string; 
+                _ts:number;
 }

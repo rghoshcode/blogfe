@@ -14,7 +14,7 @@
 <div  *ngFor="let comment of blogService.selectedBlog.comments">
  <div class="comments" >
    "{{comment.content}}"
-   <cite>- <b>{{comment.authorName}}</b></cite>
+   <cite>- by <b>{{comment.authorName}}</b> at <b>{{timeConverter(comment._ts)}}</b></cite>
  </div>
  <br>
 </div>

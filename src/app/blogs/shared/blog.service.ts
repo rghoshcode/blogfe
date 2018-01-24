@@ -29,7 +29,8 @@ export class BlogService {
     }
     this.draftComment = {
       authorName: '',
-      content: ''
+      content: '',
+      _ts:null
 
     }
    }

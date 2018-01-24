@@ -374,7 +374,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/blogs/full-blog/full-blog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<br>\n<br>\n\n<hr>\n\n<div class=\"wrapper\" >\n<h3>{{blogService.selectedBlog.title}}</h3>\n<div><span class=\"greyBold\">{{blogService.selectedBlog.authorName}}</span> | <span>{{timeConverter(blogService.selectedBlog._ts)}}</span></div>\n<p class=\"serif\">{{blogService.selectedBlog.content}}</p>\n</div>\n<br>\n<h3>Comments</h3>\n\n<div  *ngFor=\"let comment of blogService.selectedBlog.comments\">\n <div class=\"comments\" >\n   \"{{comment.content}}\"\n   <cite>- <b>{{comment.authorName}}</b></cite>\n </div>\n <br>\n</div>\n<h4>Add Comment</h4>\n<form name=\"commentForm\" #commentForm=\"ngForm\" (ngSubmit)=\"onCommentSubmit(commentForm)\" >\n<div class=\"form-group\">     \n        <textarea name= \"Content\" #Content = \"ngModel\" [(ngModel)]=\"blogService.draftComment.content\" cols=\"30\" rows=\"10\" placeholder=\"Insert your comment here\" required></textarea>\n        <div class=\"validation-error\" *ngIf=\"Content.invalid && Content.touched\">This Field is Required.</div>\n          <label >by:</label>\n        <input type=\"text\" name= \"AuthorName\" #AuthorName = \"ngModel\" [(ngModel)]=\"blogService.draftComment.authorName\"  placeholder=\"Name\" required/> \n        <div class=\"validation-error\" *ngIf=\"AuthorName.invalid && AuthorName.touched\">This Field is Required.</div>\n<br>       \n        <input [disabled]=\"!commentForm.valid\" type=\"submit\" value=\"Submit\"/>\n<br>\n</div> \n</form>"
+module.exports = "<br>\n<br>\n\n<hr>\n\n<div class=\"wrapper\" >\n<h3>{{blogService.selectedBlog.title}}</h3>\n<div><span class=\"greyBold\">{{blogService.selectedBlog.authorName}}</span> | <span>{{timeConverter(blogService.selectedBlog._ts)}}</span></div>\n<p class=\"serif\">{{blogService.selectedBlog.content}}</p>\n</div>\n<br>\n<h3>Comments</h3>\n\n<div  *ngFor=\"let comment of blogService.selectedBlog.comments\">\n <div class=\"comments\" >\n   \"{{comment.content}}\"\n   <cite>- by <b>{{comment.authorName}}</b> at <b>{{timeConverter(comment._ts)}}</b></cite>\n </div>\n <br>\n</div>\n<h4>Add Comment</h4>\n<form name=\"commentForm\" #commentForm=\"ngForm\" (ngSubmit)=\"onCommentSubmit(commentForm)\" >\n<div class=\"form-group\">     \n        <textarea name= \"Content\" #Content = \"ngModel\" [(ngModel)]=\"blogService.draftComment.content\" cols=\"30\" rows=\"10\" placeholder=\"Insert your comment here\" required></textarea>\n        <div class=\"validation-error\" *ngIf=\"Content.invalid && Content.touched\">This Field is Required.</div>\n          <label >by:</label>\n        <input type=\"text\" name= \"AuthorName\" #AuthorName = \"ngModel\" [(ngModel)]=\"blogService.draftComment.authorName\"  placeholder=\"Name\" required/> \n        <div class=\"validation-error\" *ngIf=\"AuthorName.invalid && AuthorName.touched\">This Field is Required.</div>\n<br>       \n        <input [disabled]=\"!commentForm.valid\" type=\"submit\" value=\"Submit\"/>\n<br>\n</div> \n</form>"
 
 /***/ }),
 
@@ -419,6 +419,7 @@ var FullBlogComponent = (function () {
         var _this = this;
         if (this.blogService.selectedBlog.comments == null)
             this.blogService.selectedBlog.comments = [];
+        this.blogService.draftComment._ts = Math.round(+new Date() / 1000);
         this.blogService.selectedBlog.comments.push(this.blogService.draftComment);
         this.blogService.putBlog(this.blogService.selectedBlog.id, this.blogService.selectedBlog)
             .subscribe(function (data) {
@@ -431,7 +432,8 @@ var FullBlogComponent = (function () {
             form.reset();
         this.blogService.draftComment = {
             content: '',
-            authorName: ''
+            authorName: '',
+            _ts: null
         };
     };
     FullBlogComponent = __decorate([
@@ -486,7 +488,8 @@ var BlogService = (function () {
         };
         this.draftComment = {
             authorName: '',
-            content: ''
+            content: '',
+            _ts: null
         };
     }
     BlogService.prototype.postBlog = function (blog) {

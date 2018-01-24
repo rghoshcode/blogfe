@@ -35,7 +35,7 @@ export class FullBlogComponent implements OnInit {
 
     if (this.blogService.selectedBlog.comments == null)
     this.blogService.selectedBlog.comments = [];
-    
+    this.blogService.draftComment._ts = Math.round(+new Date()/1000);
       this.blogService.selectedBlog.comments.push(this.blogService.draftComment);
       this.blogService.putBlog(this.blogService.selectedBlog.id, this.blogService.selectedBlog)
        .subscribe(data => {  
@@ -50,7 +50,8 @@ export class FullBlogComponent implements OnInit {
       form.reset();
       this.blogService.draftComment = {
         content: '',
-        authorName: ''
+        authorName: '',
+        _ts: null
       }
     
   }
