@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms'
 import {Blog} from '../shared/blog.model'
 import {Comment} from '../shared/blog.model'
 
+
 @Component({
   selector: 'app-full-blog',
   templateUrl: './full-blog.component.html',
@@ -14,8 +15,9 @@ export class FullBlogComponent implements OnInit {
   constructor(private blogService : BlogService) { }
 
   ngOnInit() {
-    
+    this.resetForm();
   }
+
   timeConverter(n:number ){
     var a = new Date(n * 1000);
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -36,9 +38,20 @@ export class FullBlogComponent implements OnInit {
     
       this.blogService.selectedBlog.comments.push(this.blogService.draftComment);
       this.blogService.putBlog(this.blogService.selectedBlog.id, this.blogService.selectedBlog)
-      .subscribe(data => {        
+       .subscribe(data => {  
         this.blogService.getBlogList();
         
-      });
+      }); 
+      this.resetForm();
+  }
+
+  resetForm(form?: NgForm) {
+    if (form != null)
+      form.reset();
+      this.blogService.draftComment = {
+        content: '',
+        authorName: ''
+      }
+    
   }
 }
