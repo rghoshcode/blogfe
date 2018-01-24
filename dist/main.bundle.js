@@ -374,7 +374,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/blogs/full-blog/full-blog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<br>\n<br>\n\n<hr>\n\n<div class=\"wrapper\" >\n<h3>{{blogService.selectedBlog.title}}</h3>\n<div><span class=\"greyBold\">{{blogService.selectedBlog.authorName}}</span> | <span>{{timeConverter(blogService.selectedBlog._ts)}}</span></div>\n<p class=\"serif\">{{blogService.selectedBlog.content}}</p>\n</div>\n<br>\n<h3>Comments</h3>\n\n<div  *ngFor=\"let comment of blogService.selectedBlog.comments\">\n <div class=\"comments\" >\n   \"{{comment.content}}\"\n   <cite>- <b>{{comment.authorName}}</b></cite>\n </div>\n <br>\n</div>\n\n<form name=\"commentForm\" (ngSubmit)=\"onCommentSubmit(blogForm)\" novalidate>\n      <h4>Add Comment</h4>\n        <textarea name= \"BlogContent\" #Content = \"ngModel\" [(ngModel)]=\"blogService.draftComment.content\" cols=\"30\" rows=\"10\" required></textarea>\n      <label for=\"\">by:</label>\n        <input type=\"text\" name= \"AuthorName\" #AuthorName = \"ngModel\" [(ngModel)]=\"blogService.draftComment.authorName\" required placeholder=\"Name\"/> \n<br>       \n        <input type=\"submit\" value=\"Submit\"/>\n<br>\n</form>"
+module.exports = "<br>\n<br>\n\n<hr>\n\n<div class=\"wrapper\" >\n<h3>{{blogService.selectedBlog.title}}</h3>\n<div><span class=\"greyBold\">{{blogService.selectedBlog.authorName}}</span> | <span>{{timeConverter(blogService.selectedBlog._ts)}}</span></div>\n<p class=\"serif\">{{blogService.selectedBlog.content}}</p>\n</div>\n<br>\n<h3>Comments</h3>\n\n<div  *ngFor=\"let comment of blogService.selectedBlog.comments\">\n <div class=\"comments\" >\n   \"{{comment.content}}\"\n   <cite>- <b>{{comment.authorName}}</b></cite>\n </div>\n <br>\n</div>\n<h4>Add Comment</h4>\n<form name=\"commentForm\" #commentForm=\"ngForm\" (ngSubmit)=\"onCommentSubmit(commentForm)\" >\n<div class=\"form-group\">     \n        <textarea name= \"Content\" #Content = \"ngModel\" [(ngModel)]=\"blogService.draftComment.content\" cols=\"30\" rows=\"10\" placeholder=\"Insert your comment here\" required></textarea>\n        <div class=\"validation-error\" *ngIf=\"Content.invalid && Content.touched\">This Field is Required.</div>\n          <label >by:</label>\n        <input type=\"text\" name= \"AuthorName\" #AuthorName = \"ngModel\" [(ngModel)]=\"blogService.draftComment.authorName\"  placeholder=\"Name\" required/> \n        <div class=\"validation-error\" *ngIf=\"AuthorName.invalid && AuthorName.touched\">This Field is Required.</div>\n<br>       \n        <input [disabled]=\"!commentForm.valid\" type=\"submit\" value=\"Submit\"/>\n<br>\n</div> \n</form>"
 
 /***/ }),
 
@@ -401,6 +401,7 @@ var FullBlogComponent = (function () {
         this.blogService = blogService;
     }
     FullBlogComponent.prototype.ngOnInit = function () {
+        this.resetForm();
     };
     FullBlogComponent.prototype.timeConverter = function (n) {
         var a = new Date(n * 1000);
@@ -423,6 +424,15 @@ var FullBlogComponent = (function () {
             .subscribe(function (data) {
             _this.blogService.getBlogList();
         });
+        this.resetForm();
+    };
+    FullBlogComponent.prototype.resetForm = function (form) {
+        if (form != null)
+            form.reset();
+        this.blogService.draftComment = {
+            content: '',
+            authorName: ''
+        };
     };
     FullBlogComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
