@@ -24,11 +24,19 @@ export class FullBlogComponent implements OnInit {
     var year = a.getFullYear();
     var month = months[a.getMonth()];
     var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
+    var hour = a.getHours() ;
+    var min =  a.getMinutes() ;
     var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    var time = date + ' ' + month + ' ' + year + ' ' + this.numconverter(hour) + ':' + this.numconverter(min) + ':' + this.numconverter(sec) ;
     return time;
+  }
+
+  numconverter( n:number){
+    if(n<10)
+      return '0' + n; 
+    else
+    return n;
+
   }
 
   onCommentSubmit(form: NgForm) {

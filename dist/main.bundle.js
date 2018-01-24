@@ -412,8 +412,14 @@ var FullBlogComponent = (function () {
         var hour = a.getHours();
         var min = a.getMinutes();
         var sec = a.getSeconds();
-        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+        var time = date + ' ' + month + ' ' + year + ' ' + this.numconverter(hour) + ':' + this.numconverter(min) + ':' + this.numconverter(sec);
         return time;
+    };
+    FullBlogComponent.prototype.numconverter = function (n) {
+        if (n < 10)
+            return '0' + n;
+        else
+            return n;
     };
     FullBlogComponent.prototype.onCommentSubmit = function (form) {
         var _this = this;

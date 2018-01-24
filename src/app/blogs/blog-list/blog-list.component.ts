@@ -18,10 +18,9 @@ export class BlogListComponent implements OnInit {
   ngOnInit() {
          this.blogService.getBlogList();    
   }
+
   displayFullBlog(b: Blog) {
     this.blogService.selectedBlog = Object.assign({}, b);
     this.blogService.showSelected = true;
-  }
-
-  
+  }  
 }
