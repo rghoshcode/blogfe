@@ -220,7 +220,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/blogs/blog/blog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<br>\n\n<form class=\"blog-form\" #blogForm=\"ngForm\" (ngSubmit)=\"onSubmit(blogForm)\">\n    <div class=\"form-group\" >\n      <label >Blog Name</label>\n      <input required type=\"text\" class=\"form-control\" name= \"BlogName\" #BlogName = \"ngModel\" [(ngModel)]=\"blogService.draftBlog.title\" placeholder=\"Blog Name\" >\n      \n    </div>\n    \n    <div class=\"form-group\">\n      <label >Author</label>\n      <textarea required class=\"form-control\"  name= \"BlogAuthor\" #BlogAuthor = \"ngModel\" [(ngModel)]=\"blogService.draftBlog.authorName\" placeholder=\"Blog Author\"></textarea>\n      \n      \n    </div>\n\n    <div class=\"form-group\">\n      <label >Blog Content</label>\n      <textarea required class=\"form-control\" rows=\"5\" name= \"BlogContent\" #BlogContent = \"ngModel\" [(ngModel)]=\"blogService.draftBlog.content\" placeholder=\"Blog Content\"></textarea>\n      \n      \n    </div>\n    <div class=\"form-row\">\n        <div class=\"form-group col-md-8\">\n          <button  type=\"submit\" class=\"btn btn-lg btn-block btn-info\">\n            Submit Blog!</button>\n        </div>\n        <div class=\"form-group col-md-4\">\n          <button type=\"button\" class=\"btn btn-lg btn-block btn-secondary\" (click)=\"resetForm(blogForm)\">\n            Reset</button>\n        </div>\n      </div>\n</form>\n<br>\n"
+module.exports = "<!-- <br>\n\n<form class=\"blog-form\" #blogForm=\"ngForm\" (ngSubmit)=\"onSubmit(blogForm)\">\n    <div class=\"form-group\" >\n      <label >Blog Name</label>\n      <input required type=\"text\" class=\"form-control\" name= \"BlogName\" #BlogName = \"ngModel\" [(ngModel)]=\"blogService.draftBlog.title\" placeholder=\"Blog Name\" >\n      \n    </div>\n    \n    <div class=\"form-group\">\n      <label >Author</label>\n      <textarea required class=\"form-control\"  name= \"BlogAuthor\" #BlogAuthor = \"ngModel\" [(ngModel)]=\"blogService.draftBlog.authorName\" placeholder=\"Blog Author\"></textarea>\n      \n      \n    </div>\n\n    <div class=\"form-group\">\n      <label >Blog Content</label>\n      <textarea required class=\"form-control\" rows=\"5\" name= \"BlogContent\" #BlogContent = \"ngModel\" [(ngModel)]=\"blogService.draftBlog.content\" placeholder=\"Blog Content\"></textarea>\n      \n      \n    </div>\n    <div class=\"form-row\">\n        <div class=\"form-group col-md-8\">\n          <button  type=\"submit\" class=\"btn btn-lg btn-block btn-info\">\n            Submit Blog!</button>\n        </div>\n        <div class=\"form-group col-md-4\">\n          <button type=\"button\" class=\"btn btn-lg btn-block btn-secondary\" (click)=\"resetForm(blogForm)\">\n            Reset</button>\n        </div>\n      </div>\n</form>\n<br>\n -->"
 
 /***/ }),
 
@@ -416,6 +416,8 @@ var FullBlogComponent = (function () {
     };
     FullBlogComponent.prototype.onCommentSubmit = function (form) {
         var _this = this;
+        if (this.blogService.selectedBlog.comments == null)
+            this.blogService.selectedBlog.comments = [];
         this.blogService.selectedBlog.comments.push(this.blogService.draftComment);
         this.blogService.putBlog(this.blogService.selectedBlog.id, this.blogService.selectedBlog)
             .subscribe(function (data) {
