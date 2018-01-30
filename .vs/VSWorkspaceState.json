@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\node_modules\\.bin"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\blogs"
   ],
-  "SelectedNode": "\\e2e",
+  "SelectedNode": "\\src\\main.ts",
   "PreviewInSolutionExplorer": false
 }
